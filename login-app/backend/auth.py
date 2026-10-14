@@ -47,7 +47,7 @@ def _hashear(password, sal):
 
 def validar_password(password):
     """Devuelve True si la contraseña tiene 8 caracteres o más."""
-    return len(password) > LARGO_MINIMO_PASSWORD
+    return len(password) >= LARGO_MINIMO_PASSWORD
 
 
 def registrar(conexion, usuario, password):
