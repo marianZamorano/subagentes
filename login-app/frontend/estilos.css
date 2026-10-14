@@ -1,0 +1,59 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  font-family: system-ui, sans-serif;
+  background: #eef1f6;
+  color: #1d2433;
+}
+
+.tarjeta {
+  width: 100%;
+  max-width: 380px;
+  padding: 28px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+h1 { font-size: 1.4rem; margin: 0 0 16px; }
+
+.pestanas { display: flex; gap: 8px; margin-bottom: 20px; }
+.pestanas button {
+  flex: 1;
+  background: none;
+  color: #5b6475;
+  border-bottom: 2px solid #d9dde5;
+  border-radius: 0;
+}
+.pestanas button.activa { color: #2f5bea; border-color: #2f5bea; }
+
+label { display: block; margin-bottom: 14px; font-size: 0.9rem; }
+input {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px;
+  border: 1px solid #c8cdd6;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #2f5bea;
+  color: #fff;
+}
+form button[type="submit"], #salir { width: 100%; }
+
+#mensaje { min-height: 1.2em; font-size: 0.9rem; }
+#mensaje.error { color: #c62828; }
+#mensaje.exito { color: #2e7d32; }

@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Pruebas (${{ matrix.proyecto }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        proyecto: [proyecto-demo, login-app]
+    defaults:
+      run:
+        working-directory: ${{ matrix.proyecto }}
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Ejecutar pruebas
+        run: python -B -m unittest discover -s tests -v
+
+  smoke-login:
+    name: Levantar login y probar API
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Arrancar servidor y registrar/iniciar sesión
+        working-directory: login-app
+        env:
+          LOGIN_DB: /tmp/ci.db
+        run: |
+          python backend/servidor.py &
+          sleep 2
+          curl -fsS http://localhost:8000/ | grep -q "<title>Login</title>"
+          curl -fsS -X POST localhost:8000/api/registro -d '{"usuario":"ci_user","password":"12345678"}'
+          TOKEN=$(curl -fsS -X POST localhost:8000/api/login -d '{"usuario":"ci_user","password":"12345678"}' | python -c "import sys,json;print(json.load(sys.stdin)['token'])")
+          curl -fsS localhost:8000/api/perfil -H "Authorization: Bearer $TOKEN" | grep -q ci_user

@@ -1,0 +1,59 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/proteger_archivos.py\"",
+            "statusMessage": "Hook: verificando archivos protegidos..."
+          }
+        ]
+      },
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/bloquear_comandos.py\"",
+            "timeout": 60,
+            "statusMessage": "Hook: revisando comando y pruebas antes del push..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/ejecutar_tests.py\"",
+            "timeout": 60,
+            "statusMessage": "Hook: ejecutando pruebas..."
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/auditoria.py\""
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "py -3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/auditoria.py\""
+          }
+        ]
+      }
+    ]
+  }
+}

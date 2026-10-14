@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.db
+.claude/auditoria.log
+.codex/auditoria.log
+.opencode/auditoria.log

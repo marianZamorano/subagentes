@@ -1,0 +1,67 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .codex/hooks/proteger_archivos.py",
+            "commandWindows": "python .codex/hooks/proteger_archivos.py",
+            "timeout": 10,
+            "statusMessage": "Hook: verificando archivos protegidos..."
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .codex/hooks/bloquear_comandos.py",
+            "commandWindows": "python .codex/hooks/bloquear_comandos.py",
+            "timeout": 60,
+            "statusMessage": "Hook: revisando comando y pruebas antes del push..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .codex/hooks/ejecutar_tests.py",
+            "commandWindows": "python .codex/hooks/ejecutar_tests.py",
+            "timeout": 60,
+            "statusMessage": "Hook: ejecutando pruebas..."
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .codex/hooks/auditoria.py",
+            "commandWindows": "python .codex/hooks/auditoria.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .codex/hooks/auditoria.py",
+            "commandWindows": "python .codex/hooks/auditoria.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

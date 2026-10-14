@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <main class="tarjeta">
+    <section id="vista-auth">
+      <div class="pestanas">
+        <button id="tab-login" class="activa" type="button">Iniciar sesión</button>
+        <button id="tab-registro" type="button">Crear cuenta</button>
+      </div>
+
+      <form id="formulario">
+        <h1 id="titulo">Iniciar sesión</h1>
+        <label>Usuario
+          <input id="usuario" name="usuario" autocomplete="username" required>
+        </label>
+        <label>Contraseña
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button id="enviar" type="submit">Entrar</button>
+        <p id="mensaje" role="status"></p>
+      </form>
+    </section>
+
+    <section id="vista-perfil" hidden>
+      <h1>¡Bienvenido, <span id="nombre"></span>!</h1>
+      <p>Iniciaste sesión correctamente.</p>
+      <button id="salir" type="button">Cerrar sesión</button>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
