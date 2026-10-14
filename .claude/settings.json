@@ -19,6 +19,12 @@
             "command": "py -3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/bloquear_comandos.py\"",
             "timeout": 60,
             "statusMessage": "Hook: revisando comando y pruebas antes del push..."
+          },
+          {
+            "type": "command",
+            "command": "py -3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/pruebas_login.py\"",
+            "timeout": 60,
+            "statusMessage": "Hook: pruebas de login-app antes del push..."
           }
         ]
       }
@@ -32,6 +38,12 @@
             "command": "py -3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/ejecutar_tests.py\"",
             "timeout": 60,
             "statusMessage": "Hook: ejecutando pruebas..."
+          },
+          {
+            "type": "command",
+            "command": "py -3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/pruebas_login.py\"",
+            "timeout": 60,
+            "statusMessage": "Hook: ejecutando pruebas de login-app..."
           }
         ]
       },
